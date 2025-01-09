@@ -1,0 +1,13 @@
+.ava img{
+    width: 38px;
+    padding: 0;
+    float:left;
+    border-radius: 50px;
+}
+
+.ava{
+    color: chartreuse;
+    font-size: 13px;
+    padding: 2px;
+    float:left;
+}
