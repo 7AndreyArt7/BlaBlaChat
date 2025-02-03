@@ -1,3 +1,8 @@
+const UPDATE_NEW_POST_TEXT = "UPDATE-NEW-POST-TEXT";
+const ADD_POST = "ADD-POST";
+const ADD_MESSAGE = "ADD_MESSAGE";
+const UPDATE_NEW_MESSAGE_TEXT = "UPDATE_NEW_MESSAGE_TEXT";
+
 let store = {
 
     _renderEntireTree() {
@@ -74,30 +79,12 @@ let store = {
         }
     },
 
-    //
-    // addMessage() {
-    //     let newMessage = {
-    //         id: 5,
-    //         img: "https://avatars.mds.yandex.net/i?id=9f0512d629696873f8b4997e8231e53e48dab52ca9a76ffb-12910854-images-thumbs&n=13",
-    //         message: this._state.dialogsPage.newMessageText
-    //     }
-    //
-    //     this._state.dialogsPage.messages.push(newMessage)
-    //     this._state.dialogsPage.newMessageText = " "
-    //     this._renderEntireTree(this._state)
-    // },
-    //
-    // updateNewMessageText(newText) {
-    //     this._state.dialogsPage.newMessageText = newText
-    //     this._renderEntireTree(this._state)
-    // },
-
     subscribe(observer) {
         this._renderEntireTree = observer
     },
 
     dispatch(action) {
-        if (action.type === "ADD-POST") {
+        if (action.type === ADD_POST) {
             let newPost = {
                 id: 6,
                 name: "Kirill",
@@ -107,11 +94,11 @@ let store = {
             this._state.profilePage.posts.push(newPost);
             this._state.profilePage.newPostText = " "
             this._renderEntireTree(this._state)
-        } else if (action.type === " UPDATE-NEW-POST-TEXT") {
+        } else if (action.type === UPDATE_NEW_POST_TEXT) {
             this._state.profilePage.newPostText = action.newText;
             this._renderEntireTree(this._state)
         }
-        if (action.type === "ADD_MESSAGE") {
+        if (action.type === ADD_MESSAGE) {
             let newMessage = {
                 id: 5,
                 img: "https://avatars.mds.yandex.net/i?id=9f0512d629696873f8b4997e8231e53e48dab52ca9a76ffb-12910854-images-thumbs&n=13",
@@ -121,17 +108,38 @@ let store = {
             this._state.dialogsPage.messages.push(newMessage)
             this._state.dialogsPage.newMessageText = " "
             this._renderEntireTree(this._state)
-        }
-        else if (action.type === "UPDATE_NEW_MESSAGE_TEXT") {
-            this._state.dialogsPage.newMessageText = action.newText
+        } else if (action.type === UPDATE_NEW_MESSAGE_TEXT) {
+            this._state.dialogsPage.newMessageText = action.newTexts
             this._renderEntireTree(this._state)
+        }
+    },
+}
+
+export const addPostActionCreator = () => {
+    return {
+        type: ADD_POST
+    }
+}
+
+export const updateNewPostTextActionCreator = (text) => {
+    return {
+        type: UPDATE_NEW_POST_TEXT, newText: text
+    }
+}
+
+export const addMessageActionCreator = () => {
+    return {
+        type: ADD_MESSAGE
+    }
+}
+
+export const updateNewMessageTextActionCreator = (text) => {
+    return {
+            type: UPDATE_NEW_MESSAGE_TEXT, newTexts: text
         }
     }
 
 
+    window.store = store
 
-
-}
-window.store = store
-
-export default store;
+    export default store;
