@@ -1,7 +1,11 @@
-const UPDATE_NEW_POST_TEXT = "UPDATE-NEW-POST-TEXT";
-const ADD_POST = "ADD-POST";
-const ADD_MESSAGE = "ADD_MESSAGE";
-const UPDATE_NEW_MESSAGE_TEXT = "UPDATE_NEW_MESSAGE_TEXT";
+// const UPDATE_NEW_POST_TEXT = "UPDATE-NEW-POST-TEXT";
+// const ADD_POST = "ADD-POST";
+// const ADD_MESSAGE = "ADD_MESSAGE";
+// const UPDATE_NEW_MESSAGE_TEXT = "UPDATE_NEW_MESSAGE_TEXT";
+
+import profileReducer from "./profile-reducer";
+import dialogsReducer from "./dialogs-reducer";
+import sidebarReducer from "./sidebar-reducer";
 
 let store = {
 
@@ -83,63 +87,71 @@ let store = {
         this._renderEntireTree = observer
     },
 
-    dispatch(action) {
-        if (action.type === ADD_POST) {
-            let newPost = {
-                id: 6,
-                name: "Kirill",
-                message: this._state.profilePage.newPostText,
-                like: 0
-            }
-            this._state.profilePage.posts.push(newPost);
-            this._state.profilePage.newPostText = " "
-            this._renderEntireTree(this._state)
-        } else if (action.type === UPDATE_NEW_POST_TEXT) {
-            this._state.profilePage.newPostText = action.newText;
-            this._renderEntireTree(this._state)
-        }
-        if (action.type === ADD_MESSAGE) {
-            let newMessage = {
-                id: 5,
-                img: "https://avatars.mds.yandex.net/i?id=9f0512d629696873f8b4997e8231e53e48dab52ca9a76ffb-12910854-images-thumbs&n=13",
-                message: this._state.dialogsPage.newMessageText
-            }
 
-            this._state.dialogsPage.messages.push(newMessage)
-            this._state.dialogsPage.newMessageText = " "
-            this._renderEntireTree(this._state)
-        } else if (action.type === UPDATE_NEW_MESSAGE_TEXT) {
-            this._state.dialogsPage.newMessageText = action.newTexts
-            this._renderEntireTree(this._state)
-        }
-    },
+
+   dispatch(action) {
+       this._state.profilePage= profileReducer(this._state.profilePage, action)
+       this._state.dialogsPage= dialogsReducer(this._state.dialogsPage, action)
+       // this._state.sidebar= sidebarReducer(this._state.sidebar, action)
+
+       this._renderEntireTree(this._state)
+
+//         if (action.type === ADD_POST) {
+//             let newPost = {
+//                 id: 6,
+//                 name: "Kirill",
+//                 message: this._state.profilePage.newPostText,
+//                 like: 0
+//             }
+//             this._state.profilePage.posts.push(newPost);
+//             this._state.profilePage.newPostText = " "
+//             this._renderEntireTree(this._state)
+//         } else if (action.type === UPDATE_NEW_POST_TEXT) {
+//             this._state.profilePage.newPostText = action.newText;
+//             this._renderEntireTree(this._state)
+//         }
+//         if (action.type === ADD_MESSAGE) {
+//             let newMessage = {
+//                 id: 5,
+//                 img: "https://avatars.mds.yandex.net/i?id=9f0512d629696873f8b4997e8231e53e48dab52ca9a76ffb-12910854-images-thumbs&n=13",
+//                 message: this._state.dialogsPage.newMessageText
+//             }
+//
+//             this._state.dialogsPage.messages.push(newMessage)
+//             this._state.dialogsPage.newMessageText = " "
+//             this._renderEntireTree(this._state)
+//         } else if (action.type === UPDATE_NEW_MESSAGE_TEXT) {
+//             this._state.dialogsPage.newMessageText = action.newTexts
+//             this._renderEntireTree(this._state)
+//         }
+  },
 }
 
-export const addPostActionCreator = () => {
-    return {
-        type: ADD_POST
-    }
-}
+// export const addPostActionCreator = () => {
+//     return {
+//         type: ADD_POST
+//     }
+// }
+//
+// export const updateNewPostTextActionCreator = (text) => {
+//     return {
+//         type: UPDATE_NEW_POST_TEXT, newText: text
+//     }
+// }
+//
+// export const addMessageActionCreator = () => {
+//     return {
+//         type: ADD_MESSAGE
+//     }
+// }
+//
+// export const updateNewMessageTextActionCreator = (text) => {
+//     return {
+//             type: UPDATE_NEW_MESSAGE_TEXT, newTexts: text
+//         }
+//     }
 
-export const updateNewPostTextActionCreator = (text) => {
-    return {
-        type: UPDATE_NEW_POST_TEXT, newText: text
-    }
-}
 
-export const addMessageActionCreator = () => {
-    return {
-        type: ADD_MESSAGE
-    }
-}
+window.store = store
 
-export const updateNewMessageTextActionCreator = (text) => {
-    return {
-            type: UPDATE_NEW_MESSAGE_TEXT, newTexts: text
-        }
-    }
-
-
-    window.store = store
-
-    export default store;
+export default store;
